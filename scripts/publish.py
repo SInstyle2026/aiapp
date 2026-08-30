@@ -89,17 +89,23 @@ def ensure_category(slug: str, meta: dict) -> None:
     print(f"  ✓ دسته {slug}")
 
 
-def changed_dirs() -> set:
-    """پوشه‌هایی که در پوش آخر تغییر کردند."""
+def rel(path: Path) -> str:
+    """مسیر نسبی فایل نسبت به ریشه‌ی مخزن با جداکننده‌ی یونیکس."""
+    return path.relative_to(ROOT).as_posix()
+
+
+def changed_files() -> set | None:
+    """فایل‌های تغییرکرده در designs/ (مسیر نسبی)؛ None یعنی نامشخص — همه منتشر شوند."""
     base = BEFORE_SHA if BEFORE_SHA and not BEFORE_SHA.startswith("0000") else "HEAD~1"
     try:
         out = subprocess.run(
             ["git", "diff", "--name-only", base, "HEAD"],
             cwd=ROOT, capture_output=True, text=True, check=True,
         ).stdout
-    except subprocess.CalledProcessError:
-        return set()
-    return {Path(line).stem for line in out.splitlines() if line.startswith("designs/")}
+    except subprocess.CalledProcessError as exc:
+        print(f"⚠ git diff ناموفق بود ({exc.stderr.strip()}) — همه‌ی طرح‌ها بررسی می‌شوند", file=sys.stderr)
+        return None
+    return {line.replace("\\", "/") for line in out.splitlines() if line.startswith("designs/")}
 
 
 def main() -> int:
@@ -107,7 +113,8 @@ def main() -> int:
         print("پوشه designs/ وجود ندارد")
         return 0
 
-    touched = None if MODE == "all" else changed_dirs()
+    # changed == None یعنی همه منتشر شوند (حالت all یا وقتی diff در دسترس نیست)
+    changed = None if MODE == "all" else changed_files()
     published, skipped, failed = 0, 0, 0
 
     for category_dir in sorted(p for p in DESIGNS.iterdir() if p.is_dir()):
@@ -118,7 +125,7 @@ def main() -> int:
         if not images:
             continue
 
-        targets = [p for p in images if touched is None or p.stem in touched]
+        targets = [p for p in images if changed is None or rel(p) in changed]
         if not targets:
             skipped += len(images)
             continue
@@ -131,8 +138,8 @@ def main() -> int:
             meta = json.loads(meta_file.read_text("utf-8")) if meta_file.exists() else {}
             try:
                 asset_url = meta.get("image")
-                # اگر عکس تازه تغییر کرده یا قبلاً آپلود نشده، دوباره آپلود کن
-                if not asset_url or MODE == "all" or image.stem in (touched or set()):
+                # آپلود دوباره فقط وقتی که خود فایل عکس تغییر کرده یا قبلاً آپلود نشده
+                if not asset_url or MODE == "all" or rel(image) in (changed or set()):
                     asset_url = upload_asset(image)
 
                 payload = {

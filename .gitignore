@@ -1,0 +1,12 @@
+# سیستم‌عامل / ادیتور
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+.venv/
+.vscode/
+.idea/
+
+# کلیدها و اسرز — هرگز توکن را در مخزن نگذار
+.env
+*.secret
