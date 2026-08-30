@@ -1,0 +1,66 @@
+name: Publish designs to pooshai.ir
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "designs/**"
+  workflow_dispatch:
+    inputs:
+      all:
+        description: "همه طرح‌ها را دوباره بفرست (نه فقط تغییرکرده‌ها)"
+        type: boolean
+        default: false
+
+# لازم است تا اکشن بتواند فایل‌های متادیتا را با id برگرداند
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-designs
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2   # برای git diff بین دو کامیت آخر
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install requests
+
+      - name: Detect changed designs
+        id: changed
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.all }}" = "true" ]; then
+            echo "mode=all" >> "$GITHUB_OUTPUT"
+          else
+            echo "mode=changed" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish
+        env:
+          POOSHAI_TOKEN: ${{ secrets.POOSHAI_TOKEN }}
+          MODE: ${{ steps.changed.outputs.mode }}
+          BEFORE_SHA: ${{ github.event.before }}
+        run: python scripts/publish.py
+
+      - name: Commit back design ids
+        run: |
+          if [ -n "$(git status --porcelain designs)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add designs
+            git commit -m "chore: sync design ids from pooshai.ir [skip ci]"
+            git push
+          else
+            echo "چیزی برای کامیت نیست"
+          fi
