@@ -2,9 +2,16 @@
   "title": "تگ خیابانی",
   "description": "طرح استریت‌ور با تایپ بولد و حالت گرافیتی",
   "prompt": "streetwear bold tag, graffiti vibe, red block print",
-  "tags": ["استریت‌ور", "گرافیتی", "خیابانی"],
+  "tags": [
+    "استریت‌ور",
+    "گرافیتی",
+    "خیابانی"
+  ],
   "fabricColor": "black",
   "placementId": "chest-a4",
   "isActive": true,
-  "sortOrder": 1
+  "sortOrder": 1,
+  "id": "8062ab37-9e2e-4838-a06e-bc2c00dcfd47",
+  "image": "/api/assets/58540d18-24ea-42ad-a426-c3f8914813c4",
+  "slug": "تگ-خیابانی"
 }

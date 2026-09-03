@@ -2,9 +2,16 @@
   "title": "غروب رترو",
   "description": "غروب آفتاب رترو با رنگ‌های گرم دهه هفتاد",
   "prompt": "retro sunset stripes, 70s palette, vintage print",
-  "tags": ["رترو", "وینتیج", "غروب"],
+  "tags": [
+    "رترو",
+    "وینتیج",
+    "غروب"
+  ],
   "fabricColor": "black",
   "placementId": "chest-a4",
   "isActive": true,
-  "sortOrder": 1
+  "sortOrder": 1,
+  "id": "47a57a2e-1d73-4ac7-90c7-270b5733812f",
+  "image": "/api/assets/c5b6b689-e31d-4ed7-b026-794330e6e8f5",
+  "slug": "غروب-رترو"
 }

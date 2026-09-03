@@ -2,10 +2,17 @@
   "title": "قلب پیکسلی",
   "description": "قلب پیکسلی ۸ بیتی برای گیمرها",
   "prompt": "8-bit pixel heart, retro game style",
-  "tags": ["گیم", "پیکسلی", "۸بیت"],
+  "tags": [
+    "گیم",
+    "پیکسلی",
+    "۸بیت"
+  ],
   "fabricColor": "black",
   "placementId": "chest-a4",
   "isActive": true,
   "isFeatured": true,
-  "sortOrder": 1
+  "sortOrder": 1,
+  "id": "b9881780-3bf2-40c4-9205-668fb49659d1",
+  "image": "/api/assets/4a47420e-5c07-48db-b11a-4d689b3d7ba7",
+  "slug": "قلب-پیکسلی"
 }

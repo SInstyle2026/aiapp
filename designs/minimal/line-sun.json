@@ -2,9 +2,16 @@
   "title": "خورشید خطی مینیمال",
   "description": "طرح مینیمال خطی از خورشید و افق — مناسب تیشرت سفید",
   "prompt": "minimal line art sun horizon, single weight black lines",
-  "tags": ["مینیمال", "خطی", "خورشید"],
+  "tags": [
+    "مینیمال",
+    "خطی",
+    "خورشید"
+  ],
   "fabricColor": "white",
   "placementId": "chest-a4",
   "isActive": true,
-  "sortOrder": 1
+  "sortOrder": 1,
+  "id": "66eab2f0-3d45-4ba9-b851-88098644639d",
+  "image": "/api/assets/8ee34e7d-05ec-4de8-9cc8-01c935f6b474",
+  "slug": "خورشید-خطی-مینیمال"
 }

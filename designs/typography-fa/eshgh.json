@@ -2,10 +2,17 @@
   "title": "تایپوگرافی «عشق»",
   "description": "طرح نمونه تایپوگرافی فارسی با واژه عشق — مناسب چاپ سینه",
   "prompt": "persian typography, word love, bold yellow on dark, minimal poster",
-  "tags": ["تایپوگرافی", "فارسی", "عشق"],
+  "tags": [
+    "تایپوگرافی",
+    "فارسی",
+    "عشق"
+  ],
   "fabricColor": "black",
   "placementId": "chest-a4",
   "isActive": true,
   "isFeatured": true,
-  "sortOrder": 1
+  "sortOrder": 1,
+  "id": "e2b0ca52-2408-4094-9c64-2add1896b86d",
+  "image": "/api/assets/c5c0f4be-898b-49ea-b1dc-2450f10af604",
+  "slug": "تایپوگرافی-عشق"
 }
