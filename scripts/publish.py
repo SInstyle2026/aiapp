@@ -74,9 +74,31 @@ def upload_asset(image_path: Path) -> str:
     return data["url"]
 
 
+def get_categories() -> list:
+    """لیست دسته‌ها را از API می‌گیرد؛ شکل‌های رایج پاسخ را هندل می‌کند."""
+    data = call("GET", "/categories")
+    if data is None:
+        return []
+    if isinstance(data, dict):
+        # پاسخ ممکن است داخل کلیدی مثل items پیچیده شده باشد
+        for key in ("items", "categories", "results", "data"):
+            if isinstance(data.get(key), list):
+                return data[key]
+        # یا نگاشت slug → دسته باشد
+        if all(isinstance(v, dict) for v in data.values()):
+            return list(data.values())
+    elif isinstance(data, list) and all(isinstance(c, dict) for c in data):
+        return data
+    # شکل ناشناخته: با چاپ پاسخ واقعی خطا بده تا دیباگ دقیق شود
+    raise RuntimeError(
+        "شکل غیرمنتظره پاسخ /categories: "
+        + json.dumps(data, ensure_ascii=False)[:500]
+    )
+
+
 def ensure_category(slug: str, meta: dict) -> None:
     """دسته را می‌سازد یا دست نمی‌زند اگر از قبل هست."""
-    existing = {c["slug"]: c for c in call("GET", "/categories") or []}
+    existing = {c["slug"]: c for c in get_categories()}
     if slug in existing and not meta.get("forceUpdate"):
         return
     payload = {"name": meta.get("name", slug), "slug": slug}
