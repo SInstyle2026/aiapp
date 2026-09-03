@@ -1,0 +1,10 @@
+{
+  "title": "تگ خیابانی",
+  "description": "طرح استریت‌ور با تایپ بولد و حالت گرافیتی",
+  "prompt": "streetwear bold tag, graffiti vibe, red block print",
+  "tags": ["استریت‌ور", "گرافیتی", "خیابانی"],
+  "fabricColor": "black",
+  "placementId": "chest-a4",
+  "isActive": true,
+  "sortOrder": 1
+}

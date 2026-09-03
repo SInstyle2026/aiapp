@@ -1,0 +1,11 @@
+{
+  "title": "قلب پیکسلی",
+  "description": "قلب پیکسلی ۸ بیتی برای گیمرها",
+  "prompt": "8-bit pixel heart, retro game style",
+  "tags": ["گیم", "پیکسلی", "۸بیت"],
+  "fabricColor": "black",
+  "placementId": "chest-a4",
+  "isActive": true,
+  "isFeatured": true,
+  "sortOrder": 1
+}
